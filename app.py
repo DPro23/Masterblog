@@ -1,14 +1,20 @@
+"""Host a blog and execute basic CRUD operations."""
 from flask import Flask, render_template
+import json
 
 app = Flask(__name__)
+blog_posts_path = "data/blog_posts.json"
 
-blog_posts = [
-    {"id": 1, "author": "John Doe", "title": "First Post", "content": "This is my first post."},
-    {"id": 2, "author": "Jane Doe", "title": "Second Post", "content": "This is another post."}
-]
+def get_posts():
+    """Return all posts from the blog"""
+    with open(blog_posts_path, 'r') as data:
+        posts = json.load(data)
+    return posts
+
 
 @app.route('/')
 def index():
+    blog_posts = get_posts()
     return render_template('index.html', posts=blog_posts)
 
 
