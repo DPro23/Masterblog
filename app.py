@@ -81,6 +81,7 @@ def add():
             "author": author,
             "title": title,
             "content": content,
+            "likes": 0,
         }
         add_post(new_post)
         return redirect(url_for('index'))
@@ -113,12 +114,33 @@ def update(post_id):
             "author": author,
             "title": title,
             "content": content,
+            "likes": post['likes'],
         }
 
         update_post(new_post)
         return redirect(url_for('index'))
 
     return render_template('update.html', post=post)
+
+
+@app.route('/like/<int:post_id>')
+def like(post_id):
+    """Add +1 like to a post."""
+    post = get_post_by_id(post_id)
+    if post is None:
+        return "Post not found", 404
+
+    # Updated post
+    new_post = {
+        "id": post_id,
+        "author": post['author'],
+        "title": post['title'],
+        "content": post['content'],
+        "likes": post['likes'] + 1,
+    }
+
+    update_post(new_post)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

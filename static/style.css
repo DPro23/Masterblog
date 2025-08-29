@@ -1,14 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #0aa2cf;
-    padding: 20px;
+    padding: 1.5rem;
     color: #333;
 }
 
 a, a:active, a:visited {
     color: #fff;
     text-decoration: none;
-
 }
 
 h1 {
@@ -18,9 +17,11 @@ h1 {
 
 .posts-container {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    max-height: 75dvh;
+    overflow: scroll;
 }
 
 .post {
@@ -29,22 +30,32 @@ h1 {
     max-width: 25rem;
     background-color: #FFF;
     border: 1px solid #DDD;
-    padding: 20px;
+    padding: 1.5rem;
     border-radius: 8px;
 }
 
 .post h2 {
     margin-top: 0;
     color: #ff4b4b;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post p {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    margin: 10px 0;
+    margin: 0.6rem 0;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.post em {
+    color: gray;
+    font-size: 0.75rem;
 }
 
 .nav-links {
