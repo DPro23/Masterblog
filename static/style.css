@@ -46,14 +46,17 @@ h1 {
     padding: 1rem;
 }
 
-button {
+button, input[type=submit] {
+    color: #fff;
     background-color: #ff4b4b;
     border: 2px solid darksalmon;
     border-radius: 4px;
+    width: fit-content;
+    align-self: center;
     transition: all 400ms;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
     border: 2px solid red;
     opacity: 0.8;
 }
@@ -65,4 +68,11 @@ button:hover {
     justify-content: center;
     max-width: 80%;
     margin: 0 auto;
+}
+
+.form-label {
+    padding: 0.5rem;
+    color: #fff;
+    background-color: #ff4b4b;
+    text-align: center;
 }
