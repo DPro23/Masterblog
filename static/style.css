@@ -5,6 +5,16 @@ body {
     color: #333;
 }
 
+a, a:active, a:visited {
+    color: red;
+    text-decoration: none;
+    transition: 0.2s,
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
 h1 {
     text-align: center;
     color: #4F4F4F;
@@ -24,4 +34,12 @@ h1 {
 
 .post p {
     margin: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
 }
