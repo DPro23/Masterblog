@@ -21,14 +21,27 @@ def add_post(blog_posts, new_post):
             json.dump(blog_posts, f_write, indent=4)
 
 
+def delete_post(blog_posts, post_id):
+    """Add a new post to the blog"""
+    with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
+        for idx, post in enumerate(blog_posts):
+            if post['id'] == post_id:
+                print(f"Deleting post {blog_posts[idx]}")
+                del blog_posts[idx]
+                print(f"Updated posts {blog_posts}")
+                json.dump(blog_posts, f_write, indent=4)
+
+
 @app.route('/')
 def index():
+    """Shows the homepage with all posts."""
     blog_posts = get_posts()
     return render_template('index.html', posts=blog_posts)
 
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
+    """Form to add a new post."""
     if request.method == 'POST':
         blog_posts = get_posts()
         last_id = 0
@@ -53,6 +66,14 @@ def add():
         add_post(blog_posts, post_attributes)
         return redirect(url_for('index'))
     return render_template('add.html')
+
+
+@app.route('/delete/<int:post_id>')
+def delete(post_id):
+    """Find the blog post with the given id and remove it from the list"""
+    blog_posts = get_posts()
+    delete_post(blog_posts, post_id)
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
