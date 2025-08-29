@@ -6,15 +6,16 @@ import json
 app = Flask(__name__)
 blog_posts_path = os.path.join("data", "blog_posts.json")
 
+
 def get_posts():
-    """Return all posts from the blog"""
+    """Return all posts from blog_posts_path"""
     with open(blog_posts_path, 'r', encoding='UTF-8') as f_load:
         posts = json.load(f_load)
         return posts
 
 
 def add_post(blog_posts, new_post):
-    """Add a new post to the blog"""
+    """Add a new post to blog_posts_path"""
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
         blog_posts.append(new_post)
         if len(blog_posts) > 0:
@@ -22,26 +23,33 @@ def add_post(blog_posts, new_post):
 
 
 def delete_post(blog_posts, post_id):
-    """Add a new post to the blog"""
+    """Delete a specific post from blog_posts_path"""
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
         for idx, post in enumerate(blog_posts):
             if post['id'] == post_id:
-                print(f"Deleting post {blog_posts[idx]}")
                 del blog_posts[idx]
-                print(f"Updated posts {blog_posts}")
+                json.dump(blog_posts, f_write, indent=4)
+
+
+def update_post(blog_posts, post_id):
+    """Update a post from blog_posts_path"""
+    with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
+        for idx, post in enumerate(blog_posts):
+            if post['id'] == post_id:
+                # write logic to edit fields
                 json.dump(blog_posts, f_write, indent=4)
 
 
 @app.route('/')
 def index():
-    """Shows the homepage with all posts."""
+    """Homepage showing all posts from blog_posts_path."""
     blog_posts = get_posts()
     return render_template('index.html', posts=blog_posts)
 
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    """Form to add a new post."""
+    """Shows a form to create a post, redirects to index after submitting."""
     if request.method == 'POST':
         blog_posts = get_posts()
         last_id = 0
@@ -70,9 +78,18 @@ def add():
 
 @app.route('/delete/<int:post_id>')
 def delete(post_id):
-    """Find the blog post with the given id and remove it from the list"""
+    """Delete the selected post and redirects to index."""
     blog_posts = get_posts()
     delete_post(blog_posts, post_id)
+    return redirect(url_for('index'))
+
+
+@app.route('/update/<int:post_id>')
+def update(post_id):
+    """Shows a form to edit a post, redirects to index after submitting."""
+    blog_posts = get_posts()
+    # TODO: Logic
+    update_post(blog_posts, post_id)
     return redirect(url_for('index'))
 
 
