@@ -14,7 +14,7 @@ def get_posts():
         return posts
 
 
-def get_post_by_id(post_id):
+def get_post_by_id(post_id: int):
     """Return a specific post filtered by id"""
     posts = get_posts()
     for post in posts:
@@ -23,7 +23,7 @@ def get_post_by_id(post_id):
     return None
 
 
-def add_post(new_post):
+def add_post(new_post: dict):
     """Add a new post to blog_posts_path"""
     blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
@@ -32,7 +32,7 @@ def add_post(new_post):
             json.dump(blog_posts, f_write, indent=4)
 
 
-def delete_post(post_id):
+def delete_post(post_id: int):
     """Delete a specific post from blog_posts_path"""
     blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
@@ -42,7 +42,7 @@ def delete_post(post_id):
                 json.dump(blog_posts, f_write, indent=4)
 
 
-def update_post(updated_post):
+def update_post(updated_post: dict):
     """Update a post from blog_posts_path"""
     blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
@@ -90,14 +90,14 @@ def add():
 
 
 @app.route('/delete/<int:post_id>')
-def delete(post_id):
+def delete(post_id: int):
     """Delete the selected post and redirects to index."""
     delete_post(post_id)
     return redirect(url_for('index'))
 
 
 @app.route('/update/<int:post_id>', methods=['GET', 'POST'])
-def update(post_id):
+def update(post_id: int):
     """Shows a form to edit a post, redirects to index after submitting."""
     post = get_post_by_id(post_id)
     if post is None:
@@ -124,7 +124,7 @@ def update(post_id):
 
 
 @app.route('/like/<int:post_id>')
-def like(post_id):
+def like(post_id: int):
     """Add +1 like to a post."""
     post = get_post_by_id(post_id)
     if post is None:

@@ -26,6 +26,8 @@ h1 {
 }
 
 .post {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     width: 100%;
     max-width: 25rem;
@@ -52,6 +54,7 @@ h1 {
     margin: 0.6rem 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex: 1;
 }
 
 .post em {
