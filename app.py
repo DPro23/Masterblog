@@ -14,6 +14,15 @@ def get_posts():
         return posts
 
 
+def get_post_by_id(post_id):
+    """Return a specific post filtered by id"""
+    posts = get_posts()
+    for post in posts:
+        if post["id"] == post_id:
+            return post
+    return None
+
+
 def add_post(blog_posts, new_post):
     """Add a new post to blog_posts_path"""
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
@@ -31,12 +40,13 @@ def delete_post(blog_posts, post_id):
                 json.dump(blog_posts, f_write, indent=4)
 
 
-def update_post(blog_posts, post_id):
+def update_post(updated_post):
     """Update a post from blog_posts_path"""
+    blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
         for idx, post in enumerate(blog_posts):
-            if post['id'] == post_id:
-                # write logic to edit fields
+            if post['id'] == updated_post['id']:
+                blog_posts[idx] = updated_post
                 json.dump(blog_posts, f_write, indent=4)
 
 
@@ -54,9 +64,8 @@ def add():
         blog_posts = get_posts()
         last_id = 0
         # AutoIncrement id
-        if len(blog_posts) > 0:
-            if 'id' in blog_posts[-1].keys():
-                last_id = blog_posts[-1]['id']
+        if len(blog_posts) > 0 and 'id' in blog_posts[-1].keys():
+            last_id = blog_posts[-1]['id']
 
         new_id = last_id + 1
 
@@ -73,6 +82,7 @@ def add():
         }
         add_post(blog_posts, post_attributes)
         return redirect(url_for('index'))
+
     return render_template('add.html')
 
 
@@ -84,13 +94,30 @@ def delete(post_id):
     return redirect(url_for('index'))
 
 
-@app.route('/update/<int:post_id>')
+@app.route('/update/<int:post_id>', methods=['GET', 'POST'])
 def update(post_id):
     """Shows a form to edit a post, redirects to index after submitting."""
-    blog_posts = get_posts()
-    # TODO: Logic
-    update_post(blog_posts, post_id)
-    return redirect(url_for('index'))
+    post = get_post_by_id(post_id)
+    if post is None:
+        return "Post not found", 404
+
+    if request.method == 'POST':
+        author = request.form['author']
+        title = request.form['title']
+        content = request.form['content']
+
+        # Updated post
+        post_attributes = {
+            "id": post_id,
+            "author": author,
+            "title": title,
+            "content": content,
+        }
+
+        update_post(post_attributes)
+        return redirect(url_for('index'))
+
+    return render_template('update.html', post=post)
 
 
 if __name__ == '__main__':
