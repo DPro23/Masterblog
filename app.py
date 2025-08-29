@@ -23,16 +23,18 @@ def get_post_by_id(post_id):
     return None
 
 
-def add_post(blog_posts, new_post):
+def add_post(new_post):
     """Add a new post to blog_posts_path"""
+    blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
         blog_posts.append(new_post)
         if len(blog_posts) > 0:
             json.dump(blog_posts, f_write, indent=4)
 
 
-def delete_post(blog_posts, post_id):
+def delete_post(post_id):
     """Delete a specific post from blog_posts_path"""
+    blog_posts = get_posts()
     with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
         for idx, post in enumerate(blog_posts):
             if post['id'] == post_id:
@@ -74,13 +76,13 @@ def add():
         content = request.form['content']
 
         # Add post
-        post_attributes = {
+        new_post = {
             "id": new_id,
             "author": author,
             "title": title,
             "content": content,
         }
-        add_post(blog_posts, post_attributes)
+        add_post(new_post)
         return redirect(url_for('index'))
 
     return render_template('add.html')
@@ -89,8 +91,7 @@ def add():
 @app.route('/delete/<int:post_id>')
 def delete(post_id):
     """Delete the selected post and redirects to index."""
-    blog_posts = get_posts()
-    delete_post(blog_posts, post_id)
+    delete_post(post_id)
     return redirect(url_for('index'))
 
 
@@ -107,14 +108,14 @@ def update(post_id):
         content = request.form['content']
 
         # Updated post
-        post_attributes = {
+        new_post = {
             "id": post_id,
             "author": author,
             "title": title,
             "content": content,
         }
 
-        update_post(post_attributes)
+        update_post(new_post)
         return redirect(url_for('index'))
 
     return render_template('update.html', post=post)
