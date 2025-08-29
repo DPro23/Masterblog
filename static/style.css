@@ -6,6 +6,7 @@ body {
 }
 
 a, a:active, a:visited {
+    padding: 0.75rem;
     color: #fff;
     text-decoration: none;
 }
@@ -58,6 +59,11 @@ h1 {
     font-size: 0.75rem;
 }
 
+.post-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
 .nav-links {
     display: flex;
     gap: 1rem;
@@ -70,6 +76,10 @@ input[type=text] {
     padding: 0.5rem;
 }
 
+button {
+    padding: 0;
+}
+
 button, input[type=submit] {
     color: #fff;
     background-color: #ff4b4b;
@@ -78,6 +88,7 @@ button, input[type=submit] {
     width: fit-content;
     align-self: center;
     transition: all 400ms;
+    cursor: pointer;
 }
 
 button:hover, input[type=submit]:hover {
@@ -99,4 +110,18 @@ button:hover, input[type=submit]:hover {
     color: #fff;
     background-color: #ff4b4b;
     text-align: center;
+}
+
+.like-button {
+    margin-left: auto;
+    border: 2px solid transparent;
+    background-color: transparent;
+}
+
+.like-button a {
+    color: red;
+}
+
+.like-button a:hover {
+    color: darksalmon;
 }
