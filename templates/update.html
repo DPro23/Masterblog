@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Flask Blog - Update Post</title>
+    <title>Masterblog | Update Post</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <h1>Update the post!</h1>
+    <h1>Update {{post['author']}}</h1>
     <form action="{{ url_for('update', post_id=post['id']) }}" method="post" class="post-form">
         <label for="author" class="form-label">AUTHOR</label>
         <input type="text" name="author" id="author" placeholder="Author" value="{{post['author']}}" required />
