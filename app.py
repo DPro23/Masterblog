@@ -2,16 +2,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import json
-
+from data_handler import get_posts
 app = Flask(__name__)
 blog_posts_path = os.path.join("data", "blog_posts.json")
-
-
-def get_posts():
-    """Return all posts from blog_posts_path"""
-    with open(blog_posts_path, 'r', encoding='UTF-8') as f_load:
-        posts = json.load(f_load)
-        return posts
 
 
 def get_post_by_id(post_id: int):
@@ -144,4 +137,4 @@ def like(post_id: int):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5023, debug=True)
+    app.run(host="0.0.0.0", port=5023)

@@ -10,9 +10,9 @@
     <h1>Update the post!</h1>
     <form action="{{ url_for('update', post_id=post['id']) }}" method="post" class="post-form">
         <label for="author" class="form-label">AUTHOR</label>
-        <input type="text" name="author" id="author" placeholder="Author" value={{post['author']}} required />
+        <input type="text" name="author" id="author" placeholder="Author" value="{{post['author']}}" required />
         <label for="title" class="form-label">TITLE</label>
-        <input type="text" name="title" id="title" placeholder="Title" value={{post['title']}} required />
+        <input type="text" name="title" id="title" placeholder="Title" value="{{post['title']}}" required />
         <label for="content" class="form-label">CONTENT</label>
         <textarea id="content" name="content" rows="5" cols="33" required>{{post['content']}}</textarea>
         <input type="submit" value="Update Post">
