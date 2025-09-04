@@ -16,6 +16,7 @@
         <label for="content" class="form-label">CONTENT</label>
         <textarea id="content" name="content" rows="5" cols="33" required>{{post['content']}}</textarea>
         <input type="submit" value="Update Post">
+        {% if error %}<p class="form-error"><b>{{ error }}</b></p>{% endif %}
     </form>
 </body>
 </html>

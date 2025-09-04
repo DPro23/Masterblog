@@ -14,8 +14,9 @@
         <label for="title" class="form-label">TITLE</label>
         <input type="text" name="title" id="title" placeholder="Title" required />
         <label for="content" class="form-label">CONTENT</label>
-        <input type="text" name="content" id="content" placeholder="Content" required />
+        <textarea id="content" name="content" rows="5" cols="33" required>Write here your contents...</textarea>
         <input type="submit" value="Add Post">
+        {% if error %}<p class="form-error"><b>{{ error }}</b></p>{% endif %}
     </form>
 </body>
 </html>

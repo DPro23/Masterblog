@@ -64,9 +64,14 @@ def add():
 
         new_id = last_id + 1
 
-        author = request.form['author']
-        title = request.form['title']
-        content = request.form['content']
+        author = request.form['author'].strip()
+        title = request.form['title'].strip()
+        content = request.form['content'].strip()
+
+        # Render an error message if stripped values are ''
+        if author == "" or title == "" or content == "":
+            form_error = "Some fields are empty!"
+            return render_template('add.html', error=form_error)
 
         # Add post
         new_post = {
@@ -76,6 +81,7 @@ def add():
             "content": content,
             "likes": 0,
         }
+
         add_post(new_post)
         return redirect(url_for('index'))
 
@@ -97,9 +103,14 @@ def update(post_id: int):
         return "Post not found", 404
 
     if request.method == 'POST':
-        author = request.form['author']
-        title = request.form['title']
-        content = request.form['content']
+        author = request.form['author'].strip()
+        title = request.form['title'].strip()
+        content = request.form['content'].strip()
+
+        # Render an error message if stripped values are ''
+        if author == "" or title == "" or content == "":
+            form_error = "Some fields are empty!"
+            return render_template('update.html', post=post, error=form_error)
 
         # Updated post
         new_post = {
@@ -114,6 +125,7 @@ def update(post_id: int):
         return redirect(url_for('index'))
 
     return render_template('update.html', post=post)
+
 
 
 @app.route('/like/<int:post_id>')
