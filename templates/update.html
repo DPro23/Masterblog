@@ -14,7 +14,7 @@
         <label for="title" class="form-label">TITLE</label>
         <input type="text" name="title" id="title" placeholder="Title" value={{post['title']}} required />
         <label for="content" class="form-label">CONTENT</label>
-        <input type="text" name="content" id="content" placeholder="Content" value={{post['content']}} required />
+        <textarea id="content" name="content" rows="5" cols="33" required>{{post['content']}}</textarea>
         <input type="submit" value="Update Post">
     </form>
 </body>
