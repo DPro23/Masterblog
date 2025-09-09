@@ -1,8 +1,8 @@
 # Masterblog
-SSR Blog manager with routing and CRUD operations.
-Serves as a template for any kind of CRM.
+Blog manager with routing and CRUD operations.
+Serves as a template for any kind of CMS.
 
-#### Python + Flask
+#### Python + Flask + Jinja
 
-Demo blog for MIT program.
+###### MIT program
 

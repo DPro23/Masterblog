@@ -6,11 +6,12 @@ import os
 import json
 
 blog_posts_path = os.path.join("data", "blog_posts.json")
+encoding = 'UTF-8'
 
 
 def get_posts():
     """Return all posts from blog_posts_path"""
-    with open(blog_posts_path, 'r', encoding='UTF-8') as f_load:
+    with open(blog_posts_path, 'r', encoding=encoding) as f_load:
         posts = json.load(f_load)
         return posts
 
@@ -24,11 +25,11 @@ def get_post_by_id(post_id: int):
     return None
 
 
-def write_posts(blog_posts):
+def write_posts(blog_posts: list):
     """Write posts to blog_posts.json"""
-    with open(blog_posts_path, 'w', encoding='UTF-8') as f_write:
-        if len(blog_posts) > 0:
-            json.dump(blog_posts, f_write, indent=4)
+    with open(blog_posts_path, 'w', encoding=encoding) as f_write:
+        posts_json = json.dumps(blog_posts)
+        f_write.write(posts_json)
 
 
 def add_post(new_post: dict):
